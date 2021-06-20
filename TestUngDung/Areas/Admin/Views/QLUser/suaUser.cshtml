@@ -1,0 +1,46 @@
+﻿@model ModelEF.Model.tblUserAccount
+@{
+    ViewBag.Title = "suaUser";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="col-md-8 col-md-offset-2">
+    @using (Html.BeginForm("SuaUser", "QLUser", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.TextBoxFor(m => m.ID, "", new { type = "hidden" })
+        <div class="col-12  m-bot15">
+            @Html.Label("Tài khoản: ", new { @for = "userName" })
+            @Html.TextBoxFor(m => m.userName, "", new { @class = "form-control col-9", @placeholder = "Tài khoản", @readonly = "" })
+            @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12  m-bot15">
+            @Html.Label("Mật khẩu: ", new { @for = "passWord" })
+            @Html.TextBoxFor(m => m.passWord, "", new { @class = "form-control col-9", @placeholder = "Mật khẩu", @type = "password" })
+            @Html.ValidationMessageFor(m => m.passWord, "", new { @class = "text-danger" })
+        </div>
+    <div class="col-12  m-bot15">
+        @Html.Label("Tên người dùng: ", new { @for = "displayName" })
+        @Html.TextBoxFor(m => m.displayName, "", new { @class = "form-control col-9", @placeholder = "Tên người dùng"})
+        @Html.ValidationMessageFor(m => m.displayName, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-12  m-bot15">
+        @{
+            string status = Model.status ? "Đang hoạt động" : "Bị khóa";
+            string className = Model.status ? "text-success" : "text-danger";
+        }
+        @Html.Label("Tình trạng", new { @for = "status", @class = "w-50" })
+        @Html.CheckBox("status", Model.status)
+        <span class="@className"> @status</span>
+    </div>
+    <div class="col-12  m-bot15">
+        @if (ViewBag.ThongBao != null)
+        {
+            <span class="text-danger"> @ViewBag.ThongBao</span>
+        }
+    </div>
+    <div class="col-md-3 col-md-offset-5">
+        <input type="submit" class="btn btn-success " value="Xác nhận">
+    </div>
+}
+    </div>

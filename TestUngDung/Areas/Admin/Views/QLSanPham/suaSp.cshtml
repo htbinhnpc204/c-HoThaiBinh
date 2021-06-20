@@ -1,0 +1,82 @@
+﻿@model  ModelEF.Model.tblProduct
+@{
+    ViewBag.Title = "SuaSP";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<script type='text/javascript'>
+    function previewFile(input) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var anh = document.getElementById('anhBia');
+            anh.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
+
+<div class="col-md-8 col-md-offset-2">
+    @using (Html.BeginForm("SuaSP", "QLSanPham", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.TextBoxFor(m => m.prodID, "", new { type = "hidden" })
+        <div class="col-12  m-bot15">
+            @Html.Label("Tên sách", new { @for = "prodName" })
+            @Html.TextBoxFor(m => m.prodName, "", new { @class = "form-control col-9", @placeholder = "Tên sách" })
+            @Html.ValidationMessageFor(m => m.prodName, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12  m-bot15">
+            @Html.Label("Thể loại", new { @for = "categoryID" })
+            @Html.DropDownList("categoryID", (IEnumerable<SelectListItem>)ViewBag.DanhMuc, new { @class = "form-select" })
+            @Html.ValidationMessageFor(m => m.categoryID, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12  m-bot15">
+            @Html.Label("Mô tả", new { @for = "prodDescription" })
+            @Html.TextAreaFor(m => m.prodDescription, new { @id = "tbMota", @class = "form-control col-12", @placeholder = "Mô tả", style = "height:250px" })
+            @Html.ValidationMessageFor(m => m.prodDescription, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="col-12  m-bot15">
+            @Html.Label("Giá bán", new { @for = "produnitCost" })
+            @{ int gia = (int)Model.produnitCost;}
+            @Html.TextBoxFor(m => m.produnitCost, "", new { @id = "giaBan", @class = "form-control", @placeholder = "Giá bán" })
+            @Html.ValidationMessageFor(m => m.produnitCost, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12  m-bot15">
+            @{
+                string imgSrc;
+                if(Model.prodImage != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.prodImage);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                else
+                {
+                    imgSrc = "";
+                }
+            }
+            @Html.Label("Ảnh bìa", new { @for = "Image", @class = "w-50" })
+            <input id="imgInp" type='file' name="fileUpload" onchange="previewFile(this);" />
+            <img class="ms-auto me-auto" id="anhBia" src="@imgSrc" style="width:200px;height:200px" alt="Ảnh bìa" />
+        </div>
+        <div class="col-12  m-bot15">
+            @{
+                string status = Model.prodStatus ? "Đang bán" : "Tạm dừng";
+                string className = Model.prodStatus ? "text-success" : "text-danger";
+            }
+            @Html.Label("Tình trạng", new { @for = "prodStatus", @class = "w-50" })
+            @Html.CheckBox("prodStatus", Model.prodStatus)
+            <span class="@className"> @status</span>
+
+        </div>
+        <div class="col-6 mbot30">
+            @Html.Label("Số lượng tồn", new { @for = "prodQuantity" })
+            @Html.TextBoxFor(m => m.prodQuantity, "", new { @class = "form-control", @placeholder = "Số lượng tồn" })
+            @Html.ValidationMessageFor(m => m.prodQuantity, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-3 col-md-offset-5">
+            <input type="submit" class="btn btn-success " value="Xác nhận">
+        </div>
+    }
+</div>

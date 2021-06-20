@@ -1,0 +1,32 @@
+﻿@model ModelEF.Model.tblCategory
+@Html.AntiForgeryToken()
+@{
+    ViewBag.Title = "suaDM";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("SuaDM", "QLDanhMuc", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+{
+    
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="@Url.Action("Index", "QLDanhMuc")" class="close">
+                        &times;
+                    </a>
+                    <h4 class="modal-title">Chỉnh sửa danh mục</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.categoryID, "", new { type = "hidden" })
+                        <label>Tên danh mục: </label>
+                        @Html.TextBoxFor(model => model.categoryName, "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success " value="Xác nhận">
+                </div>
+            </div>
+        </div>
+}

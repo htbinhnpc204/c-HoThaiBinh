@@ -1,0 +1,8 @@
+﻿@model ModelEF.Model.tblUserAccount
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    string name = Model.displayName;
+}
+
+<h2>Xin chào @name</h2>

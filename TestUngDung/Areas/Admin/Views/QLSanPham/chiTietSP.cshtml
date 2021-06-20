@@ -1,0 +1,63 @@
+﻿@model ModelEF.Model.tblProduct
+@{
+    ViewBag.Title = "chiTietSP";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="col-md-8 col-md-offset-2">
+@using (Html.BeginForm("Index", "QLSanPham", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-12  m-bot15">
+        @Html.Label("Mã sách: " + Model.prodID, new { @for = "prodID" })
+    </div>
+    <div class="col-12  m-bot15">
+        @Html.Label("Tên sách: " + Model.prodName, new { @for = "prodName" })
+    </div>
+    <div class="col-12  m-bot15">
+        @Html.Label("Thể loại: " + Model.categoryID, new { @for = "categoryID" })
+    </div>
+    <div class="col-12  m-bot15">
+        @Html.Label("Mô tả: " + Model.prodDescription, new { @for = "prodDescription" })
+    </div>
+    <div class="col-12  m-bot15">
+        @{ int gia = (int)Model.produnitCost;}
+        @Html.Label("Giá bán: " + @gia, new { @for = "produnitCost" })
+    </div>
+    <div class="col-12  m-bot15">
+        @Html.Label("Ảnh bìa: ", new { @for = "Image", @class = "w-50" })
+        @{
+            string imgSrc;
+            if (Model.prodImage != null)
+            {
+                var base64 = Convert.ToBase64String(Model.prodImage);
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <br/>
+                <img class="ms-auto me-auto" id="anhBia" src="@imgSrc" style="width:200px;height:200px" alt="Ảnh bìa" />
+            }
+            else
+            {
+                imgSrc = "";
+                <span class = "w-50">Không có ảnh bìa</span>
+            }
+        }
+    </div>
+    <div class="col-12  m-bot15">
+        @{
+            string status = Model.prodStatus ? "Đang bán" : "Tạm dừng";
+            string className = Model.prodStatus ? "text-success" : "text-danger";
+        }
+        @Html.Label("Tình trạng: ", new { @for = "prodStatus", @class = "w-50" })
+        <span class="@className"> @status</span>
+
+    </div>
+    <div class="col-6 mbot30">
+        @Html.Label("Số lượng tồn: " + Model.prodQuantity, new { @for = "prodQuantity" })
+    </div>
+
+    <div class="col-md-3">
+        <input type="submit" class="btn btn-success " value="Quay lại">
+    </div>
+}
+</div>
+

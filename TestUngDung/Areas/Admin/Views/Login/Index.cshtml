@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+@model  TestUngDung.Areas.Admin.Models.LoginModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Trang đăng nhập</title>
+    <!--Core CSS -->
+    <link href="~/Assets/Admin/bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/Admin/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="~/Assets/Admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="~/Assets/Admin/css/style.css" rel="stylesheet">
+    <link href="~/Assets/Admin/css/style-responsive.css" rel="stylesheet" />
+</head>
+<body class="login-body">
+
+    <div class="container">
+        <div class="form-signin">
+            @using (@Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, null,new { @class = "alert alert-danger"})
+                <h2 class="form-signin-heading">Trang đăng nhập</h2>
+                <div class="login-wrap">
+                    <div class="user-login-info">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Tài khoản", @autofocus = "autofocus" })
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @type = "password" })
+                    </div>
+                    <label class="checkbox" style="float:left">
+                        @Html.TextBoxFor(m => m.UserName, new { @value = "remember-me", @type = "checkbox" })
+                        Nhớ mật khẩu
+                    </label>
+                    <button class="btn btn-lg btn-login btn-block" type="submit">Đăng nhập</button>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!--Core js-->
+    <script src="~/Assets/Admin/js/jquery.js"></script>
+    <script src="~/Assets/Admin/bs3/js/bootstrap.min.js"></script>
+
+</body>
+</html>
