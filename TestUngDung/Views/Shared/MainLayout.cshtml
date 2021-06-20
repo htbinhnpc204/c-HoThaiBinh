@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BucketAdmin</title>
+    <!--Core CSS -->
+    <link href="~/Assets/Admin/bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/Admin/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
+    <link href="~/Assets/Admin/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="~/Assets/Admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Assets/Admin/js/jvector-map/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <link href="~/Assets/Admin/css/clndr.css" rel="stylesheet">
+    <!--clock css-->
+    <link href="~/Assets/Admin/js/css3clock/css/style.css" rel="stylesheet">
+    <!--Morris Chart CSS -->
+    <link rel="~/Assets/Admin/stylesheet" href="js/morris-chart/morris.css">
+    <!-- Custom styles for this template -->
+    <link href="~/Assets/Admin/css/style.css" rel="stylesheet">
+    <link href="~/Assets/Admin/css/style-responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <section id="container">
+        <!--header start-->
+        <header class="header fixed-top clearfix">
+            <!--logo start-->
+            <div class="brand">
+                @Html.ActionLink("Trang admin", "", "Home", null, new { @class = "fa logo", @style = "color: #2d3436;" })
+            </div>
+            <!--logo end-->
+
+
+            <div class="top-nav clearfix">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <li>
+                        <input type="text" class="form-control search" placeholder=" Search">
+                    </li>
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <!-- sidebar menu start-->
+                <div class="leftside-navigation">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <li class="sub-menu">
+                            @Html.ActionLink("   Quản lý sản phẩm", "", "QLSanPham", null, new { @class = "fa fa-book", @style = "font-size: 16px;" })
+                        </li>
+                        <li class="sub-menu">
+                            @Html.ActionLink("   Quản lý danh mục", "", "QLDanhMuc", null, new { @class = "fa fa-list-alt", @style = "font-size: 16px;" })
+                        </li>
+                        <li class="sub-menu">
+                            @Html.ActionLink("   Quản lý người dùng", "", "QLUser", null, new { @class = "fa fa-user", @style = "font-size: 16px;" })
+                        </li>
+                        <li class="sub-menu">
+                            @Html.ActionLink("   Đăng xuất", "", "Login", null, new { @class = "fa fa-sign-out", @style = "font-size: 16px;" })
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                @RenderBody()
+            </section>
+        </section>
+        <!--main content end-->
+    </section>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!--Core js-->
+    <script src="~/Assets/Admin/js/jquery.js"></script>
+    <script src="~/Assets/Admin/js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
+    <script src="~/Assets/Admin/bs3/js/bootstrap.min.js"></script>
+    <script src="~/Assets/Admin/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Assets/Admin/js/jquery.scrollTo.min.js"></script>
+    <script src="~/Assets/Admin/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+    <script src="~/Assets/Admin/js/jquery.nicescroll.js"></script>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+    <script src="~/Assets/Admin/js/skycons/skycons.js"></script>
+    <script src="~/Assets/Admin/js/jquery.scrollTo/jquery.scrollTo.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="~/Assets/Admin/js/calendar/clndr.js"></script>'
+    @*modal*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.openModal').on('click', function () {
+                var quoteid = $(this).attr("data-quoteid");
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetServiceQuote/",
+                    contentType: "application/json; charset=utf-8",
+                    data: { "id": quoteid },
+                    datatype: "Json",
+                    success: function (data) {
+                        var modalA = $('#modalInnerSQ');
+                        var body = $('.modal-body');
+                        var quoteid = modalA.find(body).find('#Name');
+                        $(quoteid).val(data.Name);
+                        OpenServiceQuoteModal();
+                    }
+                });
+            });
+        });
+
+        function OpenServiceQuoteModal() {
+            $('#modalInnerSQ').modal('show');
+        }
+    </script>
+    @*end modal*@
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="~/Assets/Admin/js/calendar/moment-2.2.1.js"></script>
+    <script src="~/Assets/Admin/js/evnt.calendar.init.js"></script>
+    <script src="~/Assets/Admin/js/jvector-map/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Assets/Admin/js/jvector-map/jquery-jvectormap-us-lcc-en.js"></script>
+    <script src="~/Assets/Admin/js/gauge/gauge.js"></script>
+    <!--clock init-->
+    <script src="~/Assets/Admin/js/css3clock/js/css3clock.js"></script>
+    <!--Easy Pie Chart-->
+    <script src="~/Assets/Admin/js/easypiechart/jquery.easypiechart.js"></script>
+    <!--Sparkline Chart-->
+    <script src="~/Assets/Admin/js/sparkline/jquery.sparkline.js"></script>
+    <!--Morris Chart-->
+    <script src="~/Assets/Admin/js/morris-chart/morris.js"></script>
+    <script src="~/Assets/Admin/js/morris-chart/raphael-min.js"></script>
+    <!--jQuery Flot Chart-->
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.js"></script>
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.resize.js"></script>
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.pie.resize.js"></script>
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.animator.min.js"></script>
+    <script src="~/Assets/Admin/js/flot-chart/jquery.flot.growraf.js"></script>
+    <script src="~/Assets/Admin/js/dashboard.js"></script>
+    <script src="~/Assets/Admin/js/jquery.customSelect.min.js"></script>
+    <!--common script init for all pages-->
+    <script src="~/Assets/Admin/js/scripts.js"></script>
+    <!--script for this page-->
+</body>
+</html>
